@@ -1,0 +1,538 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Кровля, которая несёт</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: drawing sheet. Left: a section through the hanging roof with snow and wind tests, then a stacked mass comparison. Right: order card, three sliders, title-block check stamp. Stacks on phones. */
+:root{
+  --paper:#e6ecf0;
+  --panel:#d7e0e6;
+  --ink:#10202b;
+  --line:#2e4a5e;
+  --muted:#566f80;
+  --accent:#d8371b;
+  --on-accent:#ffffff;
+  --warn:#e3a400;
+  --ok:#238a5f;
+  --blue:#2a7fb0;
+  --snow:#f6fafc;
+  --soil:#cbc0b0;
+  --font:'Oswald','Arial Narrow','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1922;--panel:#162733;--ink:#e7eff4;--line:#86a9bf;--muted:#8aa1b0;
+    --accent:#ff6a47;--on-accent:#1a0a05;--warn:#f0b429;--ok:#3fbf88;--blue:#6ec6f0;--snow:#dbe7ee;--soil:#2a2620;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1922;--panel:#162733;--ink:#e7eff4;--line:#86a9bf;--muted:#8aa1b0;
+  --accent:#ff6a47;--on-accent:#1a0a05;--warn:#f0b429;--ok:#3fbf88;--blue:#6ec6f0;--snow:#dbe7ee;--soil:#2a2620;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.35;
+  padding-block:16px 32px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.tag{margin:0 0 4px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{margin:0;font-size:clamp(30px,6vw,52px);line-height:1;font-weight:700;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+.sub{margin:10px 0 0;max-width:74ch;font-size:18px;font-weight:300;line-height:1.45}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid var(--ink)}
+.step{display:flex;align-items:center;gap:8px;min-width:0;padding:8px 10px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-right:2px solid var(--ink)}
+.step:last-child{border-right:0}
+.step b{flex:none;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid currentColor;font-size:13px;line-height:1}
+.step span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step[data-s="now"]{background:var(--ink);color:var(--paper)}
+.step[data-s="done"]{color:var(--ink)}
+.step[data-s="done"] b{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.main{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:16px;align-items:start}
+.left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.box{border:2px solid var(--ink);background:var(--panel);min-width:0}
+.box header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:8px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+.box h2{margin:0;font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.box .nums{font-size:15px;font-weight:500;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.box .nums b{color:var(--ink);font-weight:600}
+.box svg{display:block;width:100%;height:auto}
+.cap{margin:0;padding:8px 12px;border-top:2px solid var(--ink);background:var(--paper);font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted);font-variant-numeric:tabular-nums}
+.testbar{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink)}
+.testbar .btn{border-width:0;border-radius:0;min-height:52px}
+.testbar .btn+.btn{border-left:2px solid var(--ink)}
+.bars{display:flex;flex-direction:column;gap:14px;padding:14px 12px 10px;background:var(--paper)}
+.brow{display:flex;flex-direction:column;gap:6px}
+.brow .lab{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.brow .lab b{font-size:18px;letter-spacing:.02em;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.bar{display:flex;height:26px;border:2px solid var(--ink);background:var(--panel)}
+.bar i{display:block;height:100%;min-width:0;border-right:2px solid var(--paper);transition:width .2s}
+.bar i:last-child{border-right:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0 12px 12px;background:var(--paper);font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:12px;height:12px}
+.c-frame{background:var(--ink)}.c-purl{background:var(--muted)}.c-roof{background:var(--accent)}
+.c-mem{background:var(--blue)}.c-cab{background:var(--ok)}.c-ring{background:var(--line)}.c-h{background:var(--warn)}.c-x{background:var(--soil)}
+.ctl{display:flex;flex-direction:column;gap:6px}
+.ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ctl label{font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.ctl output{font-size:26px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.ctl small{font-size:13px;font-weight:300;color:var(--muted);line-height:1.3}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;cursor:pointer;touch-action:pan-y}
+input[type=range]::-webkit-slider-runnable-track{height:6px;background:linear-gradient(to right,var(--accent) var(--p,50%),var(--ink) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;background:var(--ink)}
+input[type=range]::-moz-range-progress{height:6px;background:var(--accent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;background:var(--paper);border:3px solid var(--ink);border-radius:0}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--paper);border:3px solid var(--ink);border-radius:0}
+input[type=range]:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.panel{display:flex;flex-direction:column;gap:18px;min-width:0}
+.order{border:2px solid var(--ink);background:var(--paper)}
+.order h2{margin:0;padding:8px 12px;font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper)}
+.order p{margin:0;padding:10px 12px;font-size:16px;font-weight:300;line-height:1.4;border-bottom:2px solid var(--ink)}
+.order dl{margin:0;display:grid;grid-template-columns:auto 1fr}
+.order dt,.order dd{margin:0;padding:7px 12px;border-bottom:2px solid var(--ink)}
+.order dt{font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.order dd{font-size:18px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.order dl>:nth-last-child(-n+2){border-bottom:0}
+.btn{
+  display:flex;align-items:center;justify-content:center;min-height:60px;padding:10px 12px;width:100%;
+  font-family:var(--font);font-size:17px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center;
+  color:var(--paper);background:var(--ink);border:2px solid var(--ink);border-radius:2px;cursor:pointer;
+  touch-action:manipulation;user-select:none;-webkit-user-select:none;
+}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.btn.go{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.stamp{border:2px solid var(--ink);background:var(--paper);box-shadow:6px 6px 0 var(--accent)}
+.stamp h2{margin:0;padding:8px 12px;font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper)}
+.stamp .r{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 12px;padding:9px 12px;border-bottom:2px solid var(--ink)}
+.stamp .r>span:first-child{font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stamp .v{margin-left:auto;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;font-size:18px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.stamp .v i{flex:none;width:12px;height:12px;background:var(--muted)}
+.stamp .v[data-t="ok"] i{background:var(--ok)}
+.stamp .v[data-t="warn"] i{background:var(--warn)}
+.stamp .v[data-t="bad"] i{background:var(--accent)}
+#feedback{margin:0;padding:12px;min-height:6.8em;font-size:16px;font-weight:400;line-height:1.4}
+.note{margin:0;font-size:13px;font-weight:300;line-height:1.4;color:var(--muted)}
+.ground{fill:var(--soil)}
+.gline{stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke}
+.col{fill:var(--paper);stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke}
+.ringb{fill:var(--ink)}
+.mem{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cable{fill:none;stroke:var(--ok);stroke-width:2;vector-effect:non-scaling-stroke}
+.tie{stroke:var(--ok);fill:none;vector-effect:non-scaling-stroke}
+.snowl{fill:var(--snow);stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.flake{fill:var(--snow);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.warr{stroke:var(--warn);stroke-width:3;fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.gridl{stroke:var(--line);stroke-opacity:.14;stroke-width:1;vector-effect:non-scaling-stroke}
+.dimline{stroke:var(--muted);stroke-width:1.5;fill:none;vector-effect:non-scaling-stroke}
+.overlay{
+  position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;overflow:auto;
+  padding-block:16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  background:color-mix(in srgb,var(--paper) 90%,transparent);
+}
+.card{width:100%;max-width:560px;display:flex;flex-direction:column;gap:12px;padding:20px 22px;background:var(--paper);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--accent)}
+.card .kicker{margin:0;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.card h2{margin:0;font-size:clamp(28px,7vw,44px);line-height:1.02;font-weight:700;text-transform:uppercase;text-wrap:balance}
+.card p{margin:0;font-size:18px;font-weight:300;max-width:62ch}
+.card .meta{font-size:15px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:860px){
+  .main{grid-template-columns:minmax(0,1fr)}
+  .sub{font-size:17px}
+}
+@media (max-width:520px){
+  .step{font-size:12px;padding:8px 6px;gap:5px}
+  .testbar .btn{font-size:15px;letter-spacing:.06em}
+}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="tag">В. Г. Шухов · висячие покрытия</p>
+    <h1>Кровля, которая несёт</h1>
+    <p class="sub">Обычно кровля из железа ничего не держит: она только давит на каркас мёртвым грузом. Шухов предложил иначе: подвесить тонкий стальной лист как мембрану, и тогда кровля сама работает на растяжение. Подберите провис, толщину и стабилизирующие тросы, чтобы кровля несла свой вес, снег и ветер.</p>
+  </header>
+
+  <div class="steps" id="steps"></div>
+
+  <div class="main">
+    <div class="left">
+      <section class="box">
+        <header><h2>Разрез: висячая мембрана</h2><span class="nums" id="numsS"></span></header>
+        <svg id="sec" viewBox="0 0 800 380" role="img" aria-label="Разрез висячей кровли: мембрана провисает между опорами, над ней стабилизирующий трос, снег и ветер"></svg>
+        <p class="cap" id="capS"></p>
+        <div class="testbar">
+          <button class="btn ghost" id="btnSnow" type="button">Снег</button>
+          <button class="btn ghost" id="btnWind" type="button">Порыв ветра</button>
+        </div>
+      </section>
+
+      <section class="box">
+        <header><h2>Масса на квадратный метр</h2><span class="nums" id="numsM"></span></header>
+        <div class="bars">
+          <div class="brow"><div class="lab"><span>Классика: каркас + кровля мёртвым грузом</span><b id="tC"></b></div><div class="bar" id="barC"></div></div>
+          <div class="brow"><div class="lab"><span>Мембрана: кровля несёт сама</span><b id="tM"></b></div><div class="bar" id="barM"></div></div>
+        </div>
+        <div class="legend" id="legend"></div>
+      </section>
+      <p class="note">Модель упрощённая: считается полоса шириной 1 м, провис по параболе, нагрузки и массы приняты для игры. Цифры показывают тенденцию и не заменяют инженерный расчёт.</p>
+    </div>
+
+    <div class="panel">
+      <div class="order">
+        <h2 id="ordTitle">Заказ</h2>
+        <p id="ordSub"></p>
+        <dl>
+          <dt>Пролёт</dt><dd id="oSpan"></dd>
+          <dt>Мембрана</dt><dd id="oMat"></dd>
+          <dt>Снег</dt><dd id="oSnow"></dd>
+          <dt>Ветер</dt><dd id="oWind"></dd>
+        </dl>
+      </div>
+
+      <div class="ctl">
+        <div class="row"><label for="sag">Провис</label><output id="sagVal" for="sag"></output></div>
+        <input type="range" id="sag" min="3" max="20" step="0.5" value="8">
+      </div>
+      <div class="ctl">
+        <div class="row"><label for="thk" id="thkLab">Толщина</label><output id="thkVal" for="thk"></output></div>
+        <input type="range" id="thk" min="0.5" max="6" step="0.1" value="2">
+      </div>
+      <div class="ctl">
+        <div class="row"><label for="pre">Стабилизирующие тросы</label><output id="preVal" for="pre"></output></div>
+        <input type="range" id="pre" min="0" max="150" step="5" value="0">
+        <small>Натяжение тросов, пересчитанное в пригруз на каждый квадратный метр кровли.</small>
+      </div>
+
+      <button class="btn go" id="btnAccept" type="button">Принять заказ</button>
+
+      <div class="stamp">
+        <h2>Проверка кровли</h2>
+        <div class="r"><span>Напряжение мембраны</span><span class="v" id="vSig" data-t="ok"><i></i><em style="font-style:normal"></em></span></div>
+        <div class="r"><span>Запас против ветра</span><span class="v" id="vHold" data-t="ok"><i></i><em style="font-style:normal"></em></span></div>
+        <div class="r"><span>Масса</span><span class="v" id="vMass" data-t="ok"><i></i><em style="font-style:normal"></em></span></div>
+        <div class="r"><span>Мёртвый груз кровли</span><span class="v" id="vDead" data-t="ok"><i></i><em style="font-style:normal"></em></span></div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="card">
+    <p class="kicker" id="ovKicker"></p>
+    <h2 id="ovTitle"></h2>
+    <p id="ovText"></p>
+    <p class="meta" id="ovMeta" hidden></p>
+    <button class="btn go" id="ovBtn" type="button"></button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+/* ===== Модель висячей кровли-мембраны (упрощённая, полоса шириной 1 м) ===== */
+var G_ACC=9.81, SIG_CABLE=600, SIG_RING=160, RHO_STEEL=7850, TIE_K=1.15;
+var ORDERS=[
+  {id:1,name:'Ротонда',short:'Ротонда',S:68,e:4/68,
+   mat:{name:'стальной лист',rho:7850,sig:160,t0:0.5,t1:6,dt:0.1},
+   g0:0.10,snow:1.0,suc:0.75,rmax:0.20,kh:1.6,extraKg:0,frameK:0.50,purl:6,roofKg:7,
+   sub:'круглое здание диаметром 68 м, как у Шухова в 1896 г.',windTxt:'отсос 0,75 кН/м²',snowTxt:'снег 1,0 кН/м²'},
+  {id:2,name:'Выставочный зал',short:'Зал',S:50,e:0.065,
+   mat:{name:'стальной лист',rho:7850,sig:160,t0:0.5,t1:6,dt:0.1},
+   g0:0.10,snow:1.2,suc:0.95,rmax:0.20,kh:1.6,extraKg:0,frameK:0.50,purl:6,roofKg:7,
+   sub:'зал с пролётом 50 м: сильнее ветер и снег',windTxt:'отсос 0,95 кН/м²',snowTxt:'снег 1,2 кН/м²'},
+  {id:3,name:'Купол тысячелетия',short:'Купол',S:28,e:1/28,
+   mat:{name:'ткань с тефлоном',rho:2000,sig:100,t0:0.3,t1:3,dt:0.05},
+   g0:0.05,snow:0.6,suc:1.0,rmax:0.20,kh:1.6,extraKg:5,frameK:0.50,purl:4,roofKg:2,
+   sub:'Лондон, 1999: диаметр 365 м, 12 мачт по 100 м. Ткань натянута между кольцами тросов через 25–30 м',windTxt:'отсос 1,0 кН/м²',snowTxt:'снег 0,6 кН/м²'}
+];
+function arcK(r){return 1+8/3*r*r;}
+/* r - стрела провиса / пролёт; t - толщина мембраны, мм; pk - стабилизирующий пригруз, кг/м² */
+function evalMem(o,r,t,pk){
+  var S=o.S,f=r*S,ka=arcK(r);
+  var p=pk*G_ACC/1000;                              /* кН/м² */
+  var memKg=o.mat.rho*t/1000*ka;                    /* кг/м² плана */
+  var g=memKg*G_ACC/1000+o.g0;                      /* собственный вес, кН/м² */
+  var s=o.snow*(1+3*r);                             /* снег с накоплением в прогибе */
+  var q1=g+s+p;
+  var H=q1*S*S/(8*f);                               /* кН/м */
+  var T=H*Math.sqrt(1+16*r*r);
+  var util=T/(t*o.mat.sig);
+  var holdMargin=(g+p)/o.suc;                       /* >=1: ветер не выворачивает */
+  /* стабилизирующие тросы */
+  var Hc=p*S*S/(8*f),Tc=Hc*Math.sqrt(1+16*r*r);
+  var cableKg=RHO_STEEL*(Tc*1000/(SIG_CABLE*1e6))*ka*TIE_K;
+  /* опорный контур */
+  var N=H*S/2;
+  var ringKg=RHO_STEEL*(N*1000/(SIG_RING*1e6))*o.e;
+  var heightKg=o.kh*f;
+  var tot=memKg+cableKg+ringKg+heightKg+o.extraKg;
+  var ok=util<=1+1e-9&&holdMargin>=1-1e-9;
+  return {f:f,g:g,s:s,q1:q1,H:H,T:T,sigma:T/t,util:util,holdMargin:holdMargin,memKg:memKg,cableKg:cableKg,ringKg:ringKg,heightKg:heightKg,total:tot,
+    ringTons:ringKg*o.e>0?0:0,utilOK:util<=1+1e-9,holdOK:holdMargin>=1-1e-9,ok:ok,p:p};
+}
+function classicMass(o){
+  var frame=o.frameK*o.S;
+  return {frame:frame,purlins:o.purl,roof:o.roofKg,total:frame+o.purl+o.roofKg};
+}
+function bestMem(o){
+  var b=null;
+  for(var r=0.03;r<=o.rmax+1e-9;r+=0.005){
+    for(var t=o.mat.t0;t<=o.mat.t1+1e-9;t+=o.mat.dt){
+      for(var pk=0;pk<=150;pk+=5){
+        var e=evalMem(o,r,t,pk);
+        if(e.ok&&(!b||e.total<b.e.total)){b={r:Math.round(r*1000)/1000,t:Math.round(t*100)/100,pk:pk,e:e};}
+      }
+    }
+  }
+  return b;
+}
+
+
+var $=function(id){return document.getElementById(id);};
+function nf(x,d){return x.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});}
+var RM=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+var G={idx:0,r:0.08,t:2,pk:0,stars:[0,0,0],done:[false,false,false],anim:{kind:null,t:0,ok:true},cache:{},e:null,cl:null};
+var sagEl=$('sag'),thkEl=$('thk'),preEl=$('pre');
+function order(){return ORDERS[G.idx];}
+function setPct(s){s.style.setProperty('--p',((s.value-s.min)/(s.max-s.min)*100)+'%');}
+function setV(id,txt,tone){var e=$(id);e.setAttribute('data-t',tone);e.lastElementChild.textContent=txt;}
+function bestFor(i){if(!G.cache[i]){G.cache[i]=bestMem(ORDERS[i]);}return G.cache[i];}
+
+function renderSteps(){
+  var h='';
+  ORDERS.forEach(function(o,i){
+    var st=G.done[i]?'done':(i===G.idx?'now':'todo');
+    h+='<div class="step" data-s="'+st+'"><b>'+(i+1)+'</b><span>'+o.name+'</span></div>';
+  });
+  $('steps').innerHTML=h;
+}
+
+/* ---------- section drawing ---------- */
+var X0=100,X1=700,YT=140,YG=340,NS=600;
+function memY(u,f){var v=2*u-1;return YT+f*(1-v*v);}
+function path(f,off){
+  var d='',N=48;
+  for(var i=0;i<=N;i++){var u=i/N;d+=(i?'L':'M')+(X0+u*NS).toFixed(1)+' '+(memY(u,f)+(off||0)).toFixed(1);}
+  return d;
+}
+function snowPoly(f,k){
+  var N=48,top='',bot='',i;
+  for(i=0;i<=N;i++){var u=i/N,v=2*u-1,y=memY(u,f),th=(4+16*(1-v*v)*0.8)*k;top+=(i?'L':'M')+(X0+u*NS).toFixed(1)+' '+(y-th).toFixed(1);}
+  for(i=N;i>=0;i--){var u2=i/N;bot+='L'+(X0+u2*NS).toFixed(1)+' '+memY(u2,f).toFixed(1);}
+  return top+bot+'Z';
+}
+function draw(){
+  var o=order(),e=G.e,a=G.anim;
+  var fpx=G.r*NS,k=0,wk=0;
+  var T=2.6;
+  if(a.kind){k=Math.min(1,a.t/T);}
+  var snowK=a.kind==='snow'?Math.sin(Math.PI*Math.min(1,a.t/T)*0.5):(a.kind==='snowDone'?1:0);
+  var windK=a.kind==='wind'?Math.sin(Math.PI*Math.min(1,a.t/T)):0;
+  var f=fpx+fpx*0.07*Math.min(1.3,e.util)*snowK;
+  var failWind=a.kind==='wind'&&!e.holdOK;
+  if(a.kind==='wind'){
+    if(e.holdOK){f=fpx*(1-0.22/Math.max(1,e.holdMargin)*windK);}
+    else{f=fpx*(1-1.9*windK);}
+  }
+  if(a.kind==='windFail'){f=-fpx*0.9;}
+  var tone=e.util>1?'var(--accent)':(e.util>0.85?'var(--warn)':'var(--ok)');
+  if(a.kind==='windFail'||failWind&&windK>0.4){tone='var(--accent)';}
+  var o2=order(),m=o2.mat;
+  var sw=2+(G.t-m.t0)/(m.t1-m.t0)*6;
+  var s='';
+  /* background grid and ground */
+  for(var gx=0;gx<=800;gx+=40){s+='<line class="gridl" x1="'+gx+'" y1="0" x2="'+gx+'" y2="'+YG+'"/>';}
+  for(var gy=0;gy<=YG;gy+=40){s+='<line class="gridl" x1="0" y1="'+gy+'" x2="800" y2="'+gy+'"/>';}
+  s+='<rect class="ground" x="0" y="'+YG+'" width="800" height="40"/><line class="gline" x1="0" y1="'+YG+'" x2="800" y2="'+YG+'"/>';
+  /* columns and ring blocks */
+  [X0,X1].forEach(function(x){
+    s+='<rect class="col" x="'+(x-13)+'" y="'+(YT+6)+'" width="26" height="'+(YG-YT-6)+'"/>';
+    s+='<rect class="ringb" x="'+(x-24)+'" y="'+(YT-12)+'" width="48" height="18"/>';
+  });
+  /* stabilizing cable above, ties */
+  if(G.pk>0){
+    var hc=26+fpx*0.35,N=48,d='';
+    for(var i=0;i<=N;i++){var u=i/N,v=2*u-1;d+=(i?'L':'M')+(X0+u*NS).toFixed(1)+' '+(YT-12-hc*(1-v*v)).toFixed(1);}
+    s+='<path class="cable" d="'+d+'"/>';
+    for(var j=1;j<10;j++){
+      var uj=j/10,vj=2*uj-1,yc=YT-12-hc*(1-vj*vj),ym=memY(uj,f);
+      s+='<line class="tie" style="stroke-width:'+(1+G.pk/45).toFixed(2)+'px" x1="'+(X0+uj*NS)+'" y1="'+yc.toFixed(1)+'" x2="'+(X0+uj*NS)+'" y2="'+ym.toFixed(1)+'"/>';
+    }
+  }
+  /* snow layer */
+  var sk=(a.kind==='snow'||a.kind==='snowDone')?snowK:0;
+  if(sk>0.02){s+='<path class="snowl" d="'+snowPoly(f,sk)+'"/>';}
+  /* membrane */
+  s+='<path class="mem" d="'+path(f)+'" style="stroke:'+tone+';stroke-width:'+sw.toFixed(1)+'px"/>';
+  /* falling flakes */
+  if(a.kind==='snow'&&a.t<T*0.85){
+    for(var q=0;q<30;q++){
+      var fx=X0+((q*137)%NS)+((q*29)%13),fy=((q*61)%120)+((a.t*130)%160)-20;
+      s+='<circle class="flake" cx="'+fx.toFixed(0)+'" cy="'+(((fy%(YT+fpx))+YT+fpx)%(YT+fpx)).toFixed(0)+'" r="2.4"/>';
+    }
+  }
+  /* wind arrows below */
+  if(a.kind==='wind'&&a.t<T){
+    for(var w=0;w<7;w++){
+      var wx=X0+40+w*85,wy=YG-10-((a.t*160+w*38)%150);
+      s+='<path class="warr" d="M'+wx+' '+(wy+16)+' L'+wx+' '+wy+' M'+(wx-6)+' '+(wy+7)+' L'+wx+' '+wy+' L'+(wx+6)+' '+(wy+7)+'"/>';
+    }
+  }
+  /* span dimension */
+  var dy=YG+22;
+  s+='<line class="dimline" x1="'+X0+'" y1="'+dy+'" x2="'+X1+'" y2="'+dy+'"/><line class="dimline" x1="'+X0+'" y1="'+(dy-6)+'" x2="'+X0+'" y2="'+(dy+6)+'"/><line class="dimline" x1="'+X1+'" y1="'+(dy-6)+'" x2="'+X1+'" y2="'+(dy+6)+'"/>';
+  $('sec').innerHTML=s;
+}
+
+/* ---------- evaluate ---------- */
+function evaluate(){
+  var o=order(),m=o.mat;
+  var e=evalMem(o,G.r,G.t,G.pk),cl=classicMass(o);
+  G.e=e;G.cl=cl;
+  setPct(sagEl);setPct(thkEl);setPct(preEl);
+  $('sagVal').textContent=nf(G.r*100,1)+' % · '+nf(e.f,1)+' м';
+  $('thkVal').textContent=nf(G.t,m.dt<0.1?2:1)+' мм';
+  $('preVal').textContent=nf(G.pk,0)+' кг/м²';
+  $('numsS').innerHTML='<b>'+nf(e.sigma,0)+' МПа</b> из '+m.sig;
+  $('capS').textContent='Пролёт '+o.S+' м · стрела провиса '+nf(e.f,1)+' м · распор на опору '+nf(e.H,0)+' кН на метр';
+
+  setV('vSig',nf(e.sigma,0)+' из '+m.sig+' МПа',e.util>1?'bad':(e.util>0.85?'warn':'ok'));
+  setV('vHold','×'+nf(e.holdMargin,2),e.holdOK?'ok':'bad');
+  var sv=(1-e.total/cl.total)*100;
+  setV('vMass',nf(e.total,1)+' кг/м² ('+(sv>=0?'−':'+')+nf(Math.abs(sv),0)+'%)',sv>=0?'ok':'warn');
+  setV('vDead','0 вместо '+nf(cl.roof,0)+' кг/м²','ok');
+
+  var msg;
+  if(!e.utilOK){msg='Мембрана перенапряжена: '+nf(e.sigma,0)+' МПа при допустимых '+m.sig+'. Увеличьте провис или толщину.';}
+  else if(!e.holdOK){msg='Отсос ветра '+nf(o.suc,2)+' кН/м² сильнее веса кровли с тросами ('+nf(e.g+e.p,2)+'). Порыв вывернет мембрану. Добавьте стабилизирующие тросы.';}
+  else if(e.util<0.6){msg='Кровля держится, но мембрана работает вполсилы ('+nf(e.util*100,0)+'%). Тоньше значит легче: уменьшайте толщину.';}
+  else{msg='Кровля сама несёт свой вес, снег и ветер. Теперь ищите лёгкое решение: чем ближе напряжение к допустимому и чем меньше лишних тросов, тем лучше. Потом запустите снег и ветер.';}
+  $('feedback').textContent=msg;
+  $('btnAccept').disabled=!e.ok;
+
+  /* mass bars */
+  var mx=Math.max(cl.total,e.total)*1.04;
+  function seg(cls,v,name){return v>0?'<i class="'+cls+'" style="width:'+(v/mx*100).toFixed(2)+'%" title="'+name+': '+nf(v,1)+' кг/м²"></i>':'';}
+  $('barC').innerHTML=seg('c-frame',cl.frame,'Каркас')+seg('c-purl',cl.purlins,'Прогоны')+seg('c-roof',cl.roof,'Кровля мёртвым грузом');
+  $('barM').innerHTML=seg('c-mem',e.memKg,'Мембрана')+seg('c-cab',e.cableKg,'Тросы')+seg('c-ring',e.ringKg,'Опорный контур')+seg('c-h',e.heightKg,'Высота и объём')+seg('c-x',o.extraKg,'Мачты и сеть');
+  $('tC').textContent=nf(cl.total,1)+' кг/м²';$('tM').textContent=nf(e.total,1)+' кг/м²';
+  $('numsM').innerHTML='<b>'+(sv>=0?'−':'+')+nf(Math.abs(sv),0)+'%</b> к классике';
+  var lg='<span><i class="c-frame"></i>каркас</span><span><i class="c-purl"></i>прогоны</span><span><i class="c-roof"></i>кровля мёртвым грузом</span><span><i class="c-mem"></i>мембрана</span><span><i class="c-cab"></i>тросы</span><span><i class="c-ring"></i>опорный контур</span><span><i class="c-h"></i>высота и объём</span>';
+  if(o.extraKg>0){lg+='<span><i class="c-x"></i>мачты и тросовая сеть</span>';}
+  $('legend').innerHTML=lg;
+  draw();
+}
+function onChange(){
+  G.r=+sagEl.value/100;G.t=+thkEl.value;G.pk=+preEl.value;
+  G.anim={kind:null,t:0};
+  evaluate();
+}
+sagEl.addEventListener('input',onChange);
+thkEl.addEventListener('input',onChange);
+preEl.addEventListener('input',onChange);
+
+/* ---------- load tests ---------- */
+function startTest(kind){
+  var e=G.e;
+  if(RM){
+    if(kind==='snow'){G.anim={kind:'snowDone',t:0};$('feedback').textContent=e.utilOK?'Снег лёг на мембрану: она слегка прогнулась и держит.':'Под снегом мембрана перенапряжена: '+nf(e.sigma,0)+' МПа.';}
+    else{G.anim={kind:e.holdOK?null:'windFail',t:0};$('feedback').textContent=e.holdOK?'Порыв ветра: мембрана чуть приподнялась и вернулась.':'Порыв ветра вывернул мембрану: вес кровли с тросами меньше отсоса.';}
+    draw();return;
+  }
+  G.anim={kind:kind,t:0};
+}
+$('btnSnow').addEventListener('click',function(){startTest('snow');});
+$('btnWind').addEventListener('click',function(){startTest('wind');});
+var last=0;
+function frame(ts){
+  var dt=Math.min(0.05,(ts-last)/1000);last=ts;
+  var a=G.anim;
+  if(a.kind==='snow'||a.kind==='wind'){
+    a.t+=dt;
+    if(a.t>=2.6){
+      if(a.kind==='snow'){
+        a.kind='snowDone';
+        $('feedback').textContent=G.e.utilOK?'Снег лёг на мембрану: она слегка прогнулась и держит. Видно, что снег скапливается в прогибе.':'Под снегом мембрана перенапряжена: '+nf(G.e.sigma,0)+' МПа. Нужен больший провис или толще лист.';
+      }else{
+        if(G.e.holdOK){a.kind=null;$('feedback').textContent='Порыв ветра: мембрана чуть приподнялась и вернулась. Стабилизирующие тросы держат кровлю.';}
+        else{a.kind='windFail';$('feedback').textContent='Порыв ветра вывернул мембрану наружу: вес кровли с тросами меньше отсоса. Добавьте стабилизирующие тросы.';}
+      }
+    }
+    draw();
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- overlay and flow ---------- */
+var ovAction=null;
+function showOv(o){
+  $('ovKicker').textContent=o.kicker||'';
+  $('ovTitle').textContent=o.title;
+  $('ovText').textContent=o.text||'';
+  var m=$('ovMeta');m.textContent=o.meta||'';m.hidden=!o.meta;
+  var b=$('ovBtn');b.textContent=o.btn;ovAction=o.action;
+  $('ov').hidden=false;
+  try{b.focus({preventScroll:true});}catch(_){}
+}
+$('ovBtn').addEventListener('click',function(){
+  $('ov').hidden=true;
+  var a=ovAction;ovAction=null;
+  if(a){a();}
+});
+function loadOrder(i){
+  G.idx=i;var o=order(),m=o.mat;
+  sagEl.min=3;sagEl.max=Math.round(o.rmax*100);sagEl.value=8;
+  thkEl.min=m.t0;thkEl.max=m.t1;thkEl.step=m.dt;
+  var tv=m.t0+(m.t1-m.t0)*0.35;tv=Math.round(tv/m.dt)*m.dt;thkEl.value=tv;
+  preEl.value=0;
+  G.r=0.08;G.t=+thkEl.value;G.pk=0;G.anim={kind:null,t:0};
+  $('thkLab').textContent=m.name==='ткань с тефлоном'?'Толщина ткани':'Толщина листа';
+  $('ordTitle').textContent='Заказ '+(i+1)+'. '+o.name;
+  $('ordSub').textContent=o.sub;
+  $('oSpan').textContent=o.S+' м';
+  $('oMat').textContent=m.name;
+  $('oSnow').textContent=nf(o.snow,1)+' кН/м²';
+  $('oWind').textContent='отсос '+nf(o.suc,2)+' кН/м²';
+  renderSteps();evaluate();
+}
+$('btnAccept').addEventListener('click',function(){
+  var e=G.e,o=order();
+  if(!e.ok){return;}
+  var b=bestFor(G.idx),ratio=e.total/b.e.total;
+  var stars=ratio<=1.03?3:(ratio<=1.10?2:1);
+  G.stars[G.idx]=Math.max(G.stars[G.idx],stars);G.done[G.idx]=true;
+  var sv=(1-e.total/G.cl.total)*100;
+  var starStr=new Array(stars+1).join('★')+new Array(4-stars).join('☆');
+  var meta='Масса '+nf(e.total,1)+' кг/м² · классика '+nf(G.cl.total,1)+' · экономия '+nf(sv,0)+'% · эталон '+nf(b.e.total,1)+' (провис '+nf(b.r*100,1)+'%, '+nf(b.t,b.t*20%1?2:1)+' мм, тросы '+b.pk+' кг/м²)';
+  renderSteps();
+  if(G.idx<ORDERS.length-1){
+    var nx=ORDERS[G.idx+1];
+    showOv({kicker:'Заказ '+(G.idx+1)+' принят · '+starStr,title:stars===3?'Почти идеально':(stars===2?'Хорошо, но можно легче':'Крыша держится, но запас велик'),
+      text:'Следующий заказ: '+nx.name.toLowerCase()+'. '+nx.sub+'.',meta:meta,btn:'К заказу '+(G.idx+2),action:function(){loadOrder(G.idx+1);}});
+  }else{
+    var tot=G.stars.reduce(function(a,c){return a+c;},0);
+    showOv({kicker:'Все заказы приняты · '+tot+' из 9 звёзд',title:'Кровля работает',
+      text:'Шухов первым в мире применил стальные висячие покрытия для павильонов Всероссийской выставки 1896 года в Нижнем Новгороде. В Куполе тысячелетия ткань тоже подвешена к кольцам тросов, которые держат 12 мачт по 100 м. Везде кровля сама участвует в работе конструкции.',
+      meta:meta,btn:'Пройти заново',action:function(){G.stars=[0,0,0];G.done=[false,false,false];G.cache={};loadOrder(0);}});
+  }
+});
+
+loadOrder(0);
+requestAnimationFrame(frame);
+showOv({kicker:'В. Г. Шухов · три заказа',title:'Пусть кровля несёт сама',
+  text:'Кровля из железа обычно висит на каркасе мёртвым грузом. Подвешенный лист или ткань работают на растяжение и держат сами себя, снег и ветер. Подберите провис, толщину и стабилизирующие тросы: нужно выдержать напряжение, не дать ветру вывернуть крышу и сделать её как можно легче.',
+  meta:'3 заказа · до трёх звёзд за каждый',btn:'К первому заказу',action:function(){}});
+})();
+</script>
+
+</body></html>
